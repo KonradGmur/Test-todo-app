@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import "./App.css";
 
 class ToDoItem extends Component {
-  state = {
+  static defaultProps = {
     done: false,
+  };
+  state = {
+    done: this.props.false,
   };
 
   toggleDone = () => {
@@ -11,7 +14,7 @@ class ToDoItem extends Component {
   };
 
   render() {
-    const { text } = this.props.task;
+    const { text } = this.props;
     return (
       <div
         onClick={this.toggleDone}
@@ -54,7 +57,7 @@ class ToDoList extends Component {
       <div>
         <h1>{title}</h1>
         {tasks.map((task) => (
-          <ToDoItem text={task} />
+          <ToDoItem text={task.text} done={task.done} />
         ))}
         <input type="text" onChange={this.updateDraft} value={draft} />
         <button onClick={this.addToDo}>Add</button>
@@ -65,7 +68,7 @@ class ToDoList extends Component {
 
 class App extends Component {
   myTask = [
-    { done: true, text: "Record a ReactJS video" },
+    { text: "Record a ReactJS video" },
     { done: false, text: "Go for a walk" },
   ];
   render() {
