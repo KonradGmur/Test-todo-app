@@ -13,7 +13,10 @@ class ToDoItem extends Component {
   render() {
     const { text } = this.props.task;
     return (
-      <div onClick={this.toggleDone}>
+      <div
+        onClick={this.toggleDone}
+        className={this.state.done ? "doneTodo" : ""}
+      >
         <p>{text}</p>
       </div>
     );
@@ -61,7 +64,10 @@ class ToDoList extends Component {
 }
 
 class App extends Component {
-  myTask = [{ text: "Record a ReactJS video" }, { text: "Go for a walk" }];
+  myTask = [
+    { done: true, text: "Record a ReactJS video" },
+    { done: false, text: "Go for a walk" },
+  ];
   render() {
     return (
       <div>
