@@ -22,6 +22,10 @@ class ToDoItem extends Component {
     this.setState({ done: !this.state.done });
   };
 
+  componentWillUnmount() {
+    console.log(`todo ${this.props.text} unmounted`);
+  }
+
   render() {
     const { text } = this.props;
     return (
