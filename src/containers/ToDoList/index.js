@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 import ToDoItem from "../../components/ToDoItem/index";
 import NewTodoForm from "../../components/NewTodoForm/index";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background: #2b2e39;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 600px;
+  padding: 14px;
+  border-radius: 14px;
+  margin-top: 14px;
+`;
+
+const Header = styled.h1``;
 
 class ToDoList extends Component {
   static defaultProps = {
@@ -36,7 +49,7 @@ class ToDoList extends Component {
     const { title } = this.props;
     const { tasks, draft } = this.state;
     return (
-      <div>
+      <Container>
         <h1>{title}</h1>
         {tasks.map((task) => (
           <ToDoItem text={task.text} done={task.done} />
@@ -46,7 +59,7 @@ class ToDoList extends Component {
           onChange={this.updateDraft}
           draft={draft}
         />
-      </div>
+      </Container>
     );
   }
 }
