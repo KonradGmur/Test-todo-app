@@ -13,7 +13,9 @@ const Container = styled.div`
   margin-top: 14px;
 `;
 
-const Header = styled.h1``;
+const Header = styled.h1`
+  color: #fff;
+`;
 
 class ToDoList extends Component {
   static defaultProps = {
@@ -50,7 +52,7 @@ class ToDoList extends Component {
     const { tasks, draft } = this.state;
     return (
       <Container>
-        <h1>{title}</h1>
+        <Header>{title}</Header>
         {tasks.map((task) => (
           <ToDoItem text={task.text} done={task.done} />
         ))}
