@@ -1,58 +1,12 @@
 import React, { Component } from "react";
-import ToDoItem from "./components/ToDoItem/index";
-import NewTodoForm from "./components/NewTodoForm/index";
+import ToDoList from "./containers/ToDoList/index";
 import "./App.css";
 
-class ToDoList extends Component {
-  state = {
-    tasks: this.props.tasks,
-    draft: "",
-  };
-
-  updateDraft = (e) => {
-    this.setState({
-      draft: e.target.value,
-    });
-  };
-
-  addToDo = () => {
-    const { tasks, draft } = this.state;
-    const list = tasks;
-    list.push({ text: draft, done: false });
-    this.setState({
-      tasks: list,
-      draft: "",
-    });
-  };
-
-  render() {
-    const { title } = this.props;
-    const { tasks, draft } = this.state;
-    return (
-      <div>
-        <h1>{title}</h1>
-        {tasks.map((task) => (
-          <ToDoItem text={task.text} done={task.done} />
-        ))}
-        <NewTodoForm
-          onSubmit={this.addToDo}
-          onChange={this.updateDraft}
-          draft={draft}
-        />
-      </div>
-    );
-  }
-}
-
 class App extends Component {
-  myTask = [
-    { text: "Record a ReactJS video" },
-    { done: false, text: "Go for a walk" },
-  ];
   render() {
     return (
       <div>
-        <ToDoList title="My app" tasks={this.myTasks} />
+        <ToDoList />
       </div>
     );
   }
