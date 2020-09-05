@@ -1,32 +1,7 @@
 import React, { Component } from "react";
+import ToDoItem from "./components/ToDoItem/index";
+import NewTodoForm from "./components/NewTodoForm/index";
 import "./App.css";
-
-class ToDoItem extends Component {
-  static defaultProps = {
-    done: false,
-  };
-  state = {
-    done: this.props.false,
-  };
-
-  toggleDone = () => {
-    this.setState({ done: !this.state.done });
-  };
-
-  render() {
-    const { text } = this.props;
-    return (
-      <div
-        onClick={this.toggleDone}
-        className={this.state.done ? "doneTodo" : ""}
-      >
-        <p>{text}</p>
-      </div>
-    );
-  }
-}
-
-export default ToDoItem;
 
 class ToDoList extends Component {
   state = {
@@ -43,7 +18,7 @@ class ToDoList extends Component {
   addToDo = () => {
     const { tasks, draft } = this.state;
     const list = tasks;
-    list.push(draft);
+    list.push({ text: draft, done: false });
     this.setState({
       tasks: list,
       draft: "",
@@ -59,8 +34,11 @@ class ToDoList extends Component {
         {tasks.map((task) => (
           <ToDoItem text={task.text} done={task.done} />
         ))}
-        <input type="text" onChange={this.updateDraft} value={draft} />
-        <button onClick={this.addToDo}>Add</button>
+        <NewTodoForm
+          onSubmit={this.addToDo}
+          onChange={this.updateDraft}
+          draft={draft}
+        />
       </div>
     );
   }
