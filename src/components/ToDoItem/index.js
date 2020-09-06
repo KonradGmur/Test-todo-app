@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-// const Item = styled.div`
-//   background: #343744;
-//   border-radius: 10px;
-//   padding: 14px;
-//   margin-bottom: 7px;
-//   color: ${(props) => (props.done ? "#1fd84d" : "auto")};
-//   text-decoration: ${(props) => (props.done ? "line-through" : "auto")};
-// `;
+const Item = styled.div`
+  background: #343744;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 7px;
+  color: ${(props) => (props.done ? "#1fd84d" : "auto")};
+  text-decoration: ${(props) => (props.done ? "line-through" : "auto")};
+`;
 
 class ToDoItem extends Component {
   static defaultProps = {
