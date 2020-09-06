@@ -19,12 +19,22 @@ class ToDoItem extends Component {
   };
 
   toggleDone = () => {
-    this.setState({ done: !this.state.done });
+    fetch(`http://localhost:4454/servers/${this.props.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json; charser=utf-8",
+      },
+      body: JSON.stringify({
+        servers: {
+          done: !this.state.done,
+        },
+      }),
+    }).then((response) => {
+      if (response.ok) {
+        this.setState({ done: !this.state.done });
+      }
+    });
   };
-
-  componentWillUnmount() {
-    console.log(`todo ${this.props.text} unmounted`);
-  }
 
   render() {
     const { text } = this.props;

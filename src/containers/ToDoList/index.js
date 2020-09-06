@@ -70,7 +70,12 @@ class ToDoList extends Component {
         <Header>{title}</Header>
         <DestroyButton onClick={this.removeAll}>Remove all</DestroyButton>
         {tasks.map((task) => (
-          <ToDoItem key={task.id} text={task.name} done={task.done} />
+          <ToDoItem
+            key={task.id}
+            id={task.id}
+            text={task.name}
+            done={task.done}
+          />
         ))}
         <NewTodoForm
           onSubmit={this.addToDo}
