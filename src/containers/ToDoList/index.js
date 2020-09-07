@@ -63,6 +63,28 @@ class ToDoList extends Component {
     this.setState({ tasks: [] });
   };
 
+  findById = (id, arr) => {
+    const index = _.findIndex(_.propEq("id", id))(arr);
+
+    return { index, task: arr[index] };
+  };
+
+  destroyToDo = async (id) => {
+    const { tasks } = this.state;
+    await ToDoItemApi.destroy(id);
+    const { index } = this.findById(id, tasks);
+
+    this.setState({ tasks: _.remove(index, 1, tasks) });
+  };
+
+  toggleDone = async (id) => {
+    const { tasks } = this.state;
+    const { index, task } = this.findById(id, tasks);
+    const response = await ToDoItemApi.update(id, { done: !task.done });
+
+    this.setState({ tasks: _.update(index, response, tasks) });
+  };
+
   render() {
     const { title } = this.props;
     const { tasks, draft } = this.state;
@@ -72,9 +94,11 @@ class ToDoList extends Component {
         <DestroyButton onClick={this.removeAll}>Remove all</DestroyButton>
         {tasks.map((task) => (
           <ToDoItem
+            destroy={this.destroyToDo}
             key={task.id}
             id={task.id}
             text={task.name}
+            toggleDone={this.toggleDone}
             done={task.done}
           />
         ))}
