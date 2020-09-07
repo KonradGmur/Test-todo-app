@@ -11,36 +11,15 @@ const Item = styled.div`
 `;
 
 class ToDoItem extends Component {
-  static defaultProps = {
-    done: false,
-  };
-  state = {
-    done: this.props.false,
-  };
-
-  toggleDone = () => {
-    fetch(`http://localhost:4454/servers/${this.props.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json; charser=utf-8",
-      },
-      body: JSON.stringify({
-        servers: {
-          done: !this.state.done,
-        },
-      }),
-    }).then((response) => {
-      if (response.ok) {
-        this.setState({ done: !this.state.done });
-      }
-    });
-  };
+  toggleDone = () => this.toggleDone(this.props.id);
+  destroy = () => this.props.destroy(this.props.id);
 
   render() {
-    const { text } = this.props;
+    const { text, done } = this.props;
     return (
-      <Item onClick={this.toggleDone} done={this.state.done}>
-        {text}
+      <Item done={done}>
+        <div onClick={this.toggleDone}>{text}</div>
+        <button onClick={this.destroy}>X</button>
       </Item>
     );
   }
