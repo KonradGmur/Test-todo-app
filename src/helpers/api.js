@@ -4,3 +4,22 @@ export const get = (url) =>
       .then((response) => response.json())
       .then((json) => resolve(json));
   });
+
+const apicall = (url, method, body, resolve, reject) => {
+  fetch(url, {
+    method: method,
+    headers: {
+      "Content-Type": "application/json ; charset=utf-8",
+    },
+    body: JSON.stringify(body),
+  }).then((response) => {
+    if (response.ok) {
+      response.json().then((json) => response(json));
+    } else {
+      reject(response);
+    }
+  });
+};
+
+export const post = (url, body) =>
+  new Promise((resolve, reject) => apicall(url, "POST", body, resolve, reject));

@@ -3,6 +3,7 @@ import ToDoItem from "../../components/ToDoItem/index";
 import NewTodoForm from "../../components/NewTodoForm/index";
 import styled from "styled-components";
 import * as ToDoItemApi from "../../helpers/toDoItemApi";
+import * as _ from "ramda";
 
 const Container = styled.div`
   background: #2b2e39;
@@ -48,12 +49,12 @@ class ToDoList extends Component {
     });
   };
 
-  addToDo = () => {
+  addToDo = async () => {
     const { tasks, draft } = this.state;
-    const list = tasks;
-    list.push({ text: draft, done: false });
+    const task = await ToDoItemApi.create({ content: draft });
+
     this.setState({
-      tasks: list,
+      tasks: _.append(task, tasks),
       draft: "",
     });
   };
