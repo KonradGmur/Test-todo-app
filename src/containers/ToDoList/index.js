@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ToDoItem from "../../components/ToDoItem/index";
 import NewTodoForm from "../../components/NewTodoForm/index";
 import styled from "styled-components";
+import * as ToDoItemApi from "../../helpers/toDoItemApi";
 
 const Container = styled.div`
   background: #2b2e39;
@@ -26,11 +27,10 @@ const DestroyButton = styled.button`
 `;
 
 class ToDoList extends Component {
-  componentDidMount() {
-    fetch("http://localhost:4454/servers")
-      .then((response) => response.json())
-      .then((json) => this.setState({ tasks: json }));
-  }
+  componentDidMount = async () => {
+    const tasks = await ToDoItemApi.getAll();
+    this.setState({ tasks });
+  };
 
   static defaultProps = {
     tasks: [],
