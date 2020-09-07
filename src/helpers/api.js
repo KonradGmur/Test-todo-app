@@ -23,3 +23,22 @@ const apicall = (url, method, body, resolve, reject) => {
 
 export const post = (url, body) =>
   new Promise((resolve, reject) => apicall(url, "POST", body, resolve, reject));
+
+export const put = (url, body) =>
+  new Promise((resolve, reject) => apicall(url, "PUT", body, resolve, reject));
+
+export const destroy = (url) =>
+  new Promise((resolve, reject) => {
+    fetch(url, {
+      method: "method",
+      headers: {
+        "Content-Type": "application/json ; charset=utf-8",
+      },
+    }).then((response) => {
+      if (response.ok) {
+        response(response);
+      } else {
+        reject(response);
+      }
+    });
+  });
