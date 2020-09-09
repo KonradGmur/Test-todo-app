@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { get } from "../../helpers/toDoItemApi";
+import { get, update } from "../../helpers/toDoItemApi";
+import { Formik } from "formik";
 
 class ToDoEditForm extends Component {
   state = {
@@ -7,8 +8,10 @@ class ToDoEditForm extends Component {
     fetched: false,
   };
 
+  itemId = () => this.props.match.params.itemId;
+
   componentDidMount = async () => {
-    const toDoItem = await get(this.props.match.params.itemId);
+    const toDoItem = await get(this.itemId());
     console.log(toDoItem);
     this.setState({ toDoItem, fetched: true });
   };
@@ -16,7 +19,35 @@ class ToDoEditForm extends Component {
     return (
       <div>
         Edit form for {this.props.match.params.itemId}
-        {this.state.fetched ? <p>Item fetched</p> : <p>Loading...</p>}
+        {this.state.fetched ? (
+          <Formik
+            initialValues={{ ...this.state.toDoItem }}
+            onSubmit={(values) => {
+              update(this.itemId(), { ...values });
+            }}
+            render={({
+              values,
+              errors,
+              touched,
+              handleBlur,
+              handleChange,
+              handleSubmit,
+              isSubmitting,
+            }) => (
+              <form onSubmit={handleSubmit}>
+                <input
+                  name="content"
+                  onChange={handleChange}
+                  value={values.content}
+                />
+                <br />
+                <button type="submit">Update</button>
+              </form>
+            )}
+          />
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     );
   }
