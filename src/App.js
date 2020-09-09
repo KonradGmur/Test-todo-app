@@ -24,7 +24,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={ToDoList} />
             <Route exact path="/servers/:itemId" component={ToDoEditForm} />
-            {/* <Route component={NotFound} /> */}
+            <Route component={NotFound} />
           </Switch>
         </Container>
       </Router>
