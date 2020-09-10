@@ -8,11 +8,14 @@ import {
   Select,
   ErrorMsg,
 } from "../../helpers/theme";
+import { withRouter } from "react-router-dom";
+import * as _ from "ramda";
 
 class ToDoEditForm extends Component {
   state = {
     toDoItem: null,
     fetched: false,
+    disabled: false,
   };
 
   itemId = () => this.props.match.params.itemId;
@@ -29,8 +32,9 @@ class ToDoEditForm extends Component {
         {this.state.fetched ? (
           <Formik
             initialValues={{ ...this.state.toDoItem }}
-            onSubmit={(values) => {
-              update(this.itemId(), { ...values });
+            onSubmit={async (values) => {
+              await update(this.itemId(), { ...values });
+              this.props.history.push("/");
             }}
             validate={(values) => {
               let errors = {};
@@ -42,6 +46,13 @@ class ToDoEditForm extends Component {
               } else if (values.content.includes("ass")) {
                 errors.content = "Mind your language";
               }
+
+              if (_.isEmpty(errors)) {
+                this.setState({ disabled: false });
+              } else {
+                this.setState({ disabled: true });
+              }
+
               return errors;
             }}
             render={({
@@ -87,7 +98,9 @@ class ToDoEditForm extends Component {
                   />
                 </Label>
                 <br />
-                <SubmitButton type="submit">Update</SubmitButton>
+                <SubmitButton type="submit" disabled={this.state.disabled}>
+                  Update
+                </SubmitButton>
               </form>
             )}
           />
@@ -99,4 +112,4 @@ class ToDoEditForm extends Component {
   }
 }
 
-export default ToDoEditForm;
+export default withRouter(ToDoEditForm);
