@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { get, update } from "../../helpers/toDoItemApi";
 import { Formik } from "formik";
+import { SubmitButton, TextInput, Label, Select } from "../../helpers/theme";
 
 class ToDoEditForm extends Component {
   state = {
@@ -41,7 +42,7 @@ class ToDoEditForm extends Component {
                   value={values.content}
                 />
                 <br />
-                <button type="submit">Update</button>
+                <SubmitButton type="submit">Update</SubmitButton>
               </form>
             )}
           />
