@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { get, update } from "../../helpers/toDoItemApi";
 import { Formik } from "formik";
-import { SubmitButton, TextInput, Label, Select } from "../../helpers/theme";
+import {
+  SubmitButton,
+  TextInput,
+  Label,
+  Select,
+  ErrorMsg,
+} from "../../helpers/theme";
 
 class ToDoEditForm extends Component {
   state = {
@@ -26,6 +32,14 @@ class ToDoEditForm extends Component {
             onSubmit={(values) => {
               update(this.itemId(), { ...values });
             }}
+            validate={(values) => {
+              let errors = {};
+
+              if (!values.content) {
+                errors.content = "Required";
+              }
+              return errors;
+            }}
             render={({
               values,
               errors,
@@ -36,11 +50,14 @@ class ToDoEditForm extends Component {
               isSubmitting,
             }) => (
               <form onSubmit={handleSubmit}>
-                <input
-                  name="content"
-                  onChange={handleChange}
-                  value={values.content}
-                />
+                <Label>
+                  Content *<ErrorMsg>{errors.content}</ErrorMsg>
+                  <TextInput
+                    name="content"
+                    onChange={handleChange}
+                    value={values.content}
+                  />
+                </Label>
                 <br />
                 <SubmitButton type="submit">Update</SubmitButton>
               </form>
