@@ -37,6 +37,10 @@ class ToDoEditForm extends Component {
 
               if (!values.content) {
                 errors.content = "Required";
+              } else if (values.content.length < 3) {
+                errors.content = "Too short. Minimum 3 characters...";
+              } else if (values.content.includes("ass")) {
+                errors.content = "Mind your language";
               }
               return errors;
             }}
@@ -56,6 +60,30 @@ class ToDoEditForm extends Component {
                     name="content"
                     onChange={handleChange}
                     value={values.content}
+                  />
+                </Label>
+
+                <Label>
+                  Priority
+                  <Select
+                    name="priority"
+                    onChange={handleChange}
+                    value={values.priority}
+                  >
+                    <option value="low">Low</option>
+                    <option value="hight">Hight</option>
+                    <option value="urgent">Urgent</option>
+                  </Select>
+                </Label>
+
+                <Label>
+                  Done?
+                  <input
+                    type="checkbox"
+                    name="done"
+                    value={values.done}
+                    checked={values.done}
+                    onChange={handleChange}
                   />
                 </Label>
                 <br />
