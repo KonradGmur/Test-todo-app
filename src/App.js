@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import ToDoList from "./containers/ToDoList/index";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import ToDoEditForm from "./components/ToDoEditForm/index";
 import styled from "styled-components";
-import NotFound from "./components/NotFound/index";
+import ToDoEditForm from "./components/ToDoEditForm/index";
 import Login from "./containers/Login/index";
+import NotFound from "./components/NotFound/index";
 
 const Container = styled.div`
   background: #2b2e39;
