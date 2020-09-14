@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ToDoEditForm from "./components/ToDoEditForm/index";
 import styled from "styled-components";
 import NotFound from "./components/NotFound/index";
+import Login from "./containers/Login/index";
 
 const Container = styled.div`
   background: #2b2e39;
@@ -25,6 +26,7 @@ class App extends Component {
             <Route exact path="/" component={ToDoList} />
             <Route exact path="/servers/:itemId" component={ToDoEditForm} />
             <Route component={NotFound} />
+            <Route exact path="/login" component={Login} />
           </Switch>
         </Container>
       </Router>
