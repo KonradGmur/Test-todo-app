@@ -4,26 +4,32 @@ import { SubmitButton } from "../../helpers/theme";
 class Login extends Component {
   state = {
     processing: false,
+    currentUser: null,
   };
 
   fbLogin = () => {
     this.setState({ processing: true });
     window.FB.getLoginStatus((response) => {
-      console.log(response);
       if (response.status !== "connected") {
         window.FB.login();
       } else {
         window.FB.api("/me", (user) => {
-          console.log(user);
+          this.setState({ processing: false, currentUser: user });
         });
       }
     });
   };
   render() {
+    const { currentUser, processing } = this.state;
     return (
       <div>
-        <p>You must login to view page</p>
-        {this.state.processing ? (
+        {currentUser ? (
+          <div>Hello, {currentUser.name}!</div>
+        ) : (
+          <p>You must login to view page</p>
+        )}
+
+        {processing ? (
           <div>Authenticating...</div>
         ) : (
           <SubmitButton ocClick={this.fbLogin}>Facebook login</SubmitButton>
