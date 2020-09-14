@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { SubmitButton } from "../../helpers/theme";
+import { Redirect } from "react-router-dom";
 
 class Login extends Component {
   state = {
     processing: false,
     currentUser: null,
+    finished: false,
   };
 
   fbLogin = () => {
@@ -14,19 +16,30 @@ class Login extends Component {
         window.FB.login();
       } else {
         window.FB.api("/me", (user) => {
-          this.setState({ processing: false, currentUser: user });
+          sessionStorage.setItem("currentUser", user);
+          this.setState({
+            finished: true,
+            processing: false,
+            currentUser: user,
+          });
         });
       }
     });
   };
+
   render() {
-    const { currentUser, processing } = this.state;
+    const { finished, currentUser, processing } = this.state;
+    const { from } = this.props.location.state || { from: { pathname: "/" } };
+
+    if (finished) {
+      return <Redirect to={from} />;
+    }
     return (
       <div>
         {currentUser ? (
           <div>Hello, {currentUser.name}!</div>
         ) : (
-          <p>You must login to view page</p>
+          <p>You must login to view page {from.pathname}</p>
         )}
 
         {processing ? (
