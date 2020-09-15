@@ -4,7 +4,7 @@ const CurrentUserContext = React.createContext();
 
 export class CurrentUserProvider extends Component {
   state = {
-    user: null,
+    user: { name: "Konrad" },
   };
 
   login = () => {
@@ -30,4 +30,4 @@ export class CurrentUserProvider extends Component {
   }
 }
 
-export const CurrrentUserConsumer = CurrentUserContext.Consumer;
+export const CurrentUserConsumer = CurrentUserContext.Consumer;
