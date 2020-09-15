@@ -14,4 +14,20 @@ export class CurrentUserProvider extends Component {
   logout = () => {
     this.setState({ user: null });
   };
+  render() {
+    const { children } = this.props;
+    return (
+      <CurrentUserContext.Provider
+        value={{
+          login: this.login,
+          logout: this.logout,
+          user: this.state.user,
+        }}
+      >
+        {children}
+      </CurrentUserContext.Provider>
+    );
+  }
 }
+
+export const CurrrentUserConsumer = CurrentUserContext.Consumer;
