@@ -8,6 +8,7 @@ import Login from "./containers/Login/index";
 import NotFound from "./components/NotFound/index";
 import { Redirect } from "react-router-dom";
 import Navbar from "./containers/Navbar/index";
+import { CurrentUserProvider } from "./context/CurrentUser.context";
 
 const Container = styled.div`
   background: #2b2e39;
@@ -41,19 +42,21 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Container>
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={ToDoList} />
-            <PrivateRoute
-              exact
-              path="/servers/:itemId"
-              component={ToDoEditForm}
-            />
-            <Route component={NotFound} />
-            <Route exact path="/login" component={Login} />
-          </Switch>
-        </Container>
+        <CurrentUserProvider>
+          <Container>
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={ToDoList} />
+              <PrivateRoute
+                exact
+                path="/servers/:itemId"
+                component={ToDoEditForm}
+              />
+              <Route component={NotFound} />
+              <Route exact path="/login" component={Login} />
+            </Switch>
+          </Container>
+        </CurrentUserProvider>
       </Router>
     );
   }
