@@ -9,7 +9,7 @@ class Navbar extends Component {
           <div>
             {user ? (
               <div>
-                Hello {user.name}. <button onClick={logout}>Logout</button>{" "}
+                Cześć {user.name} <button onClick={logout}>Logout</button>{" "}
               </div>
             ) : (
               <div>Please login...</div>
