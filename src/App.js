@@ -7,6 +7,7 @@ import ToDoEditForm from "./components/ToDoEditForm/index";
 import Login from "./containers/Login/index";
 import NotFound from "./components/NotFound/index";
 import { Redirect } from "react-router-dom";
+import Navbar from "./containers/Navbar/index";
 
 const Container = styled.div`
   background: #2b2e39;
@@ -41,6 +42,7 @@ class App extends Component {
     return (
       <Router>
         <Container>
+          <Navbar />
           <Switch>
             <Route exact path="/" component={ToDoList} />
             <PrivateRoute
