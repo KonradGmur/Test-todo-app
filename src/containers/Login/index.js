@@ -9,16 +9,18 @@ class Login extends Component {
 
     return (
       <CurrentUserConsumer>
-        {{ user }}
-        <div>
-          <p>You must login to view page {from.pathname}</p>
+        {({ user, login, processing }) => (
+          <div>
+            {user && <Redirect to={from} />}
+            <p>You must login to view page {from.pathname}</p>
 
-          {this.state.processing ? (
-            <div>Authenticating...</div>
-          ) : (
-            <SubmitButton ocClick={this.fbLogin}>Facebook login</SubmitButton>
-          )}
-        </div>
+            {processing ? (
+              <div>Authenticating...</div>
+            ) : (
+              <SubmitButton ocClick={login}>Facebook login</SubmitButton>
+            )}
+          </div>
+        )}
       </CurrentUserConsumer>
     );
   }
