@@ -8,7 +8,10 @@ import Login from "./containers/Login/index";
 import NotFound from "./components/NotFound/index";
 import { Redirect } from "react-router-dom";
 import Navbar from "./containers/Navbar/index";
-import { CurrentUserProvider } from "./context/CurrentUser.context";
+import {
+  CurrentUserProvider,
+  CurrentUserConsumer,
+} from "./context/CurrentUser.context";
 
 const Container = styled.div`
   background: #2b2e39;
@@ -23,18 +26,22 @@ const Container = styled.div`
 const PrivateRoute = ({ componet: Component, ...rest }) => (
   <Route
     {...rest}
-    render={(props) =>
-      sessionStorage.getItem("currentUser") ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: { from: props.location },
-          }}
-        />
-      )
-    }
+    render={(props) => (
+      <CurrentUserConsumer>
+        {({ user }) =>
+          user ? (
+            <Component {...props} />
+          ) : (
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: props.location },
+              }}
+            />
+          )
+        }
+      </CurrentUserConsumer>
+    )}
   />
 );
 
