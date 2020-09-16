@@ -5,10 +5,27 @@ const CurrentUserContext = React.createContext();
 export class CurrentUserProvider extends Component {
   state = {
     user: { name: "Konrad" },
+    processing: false,
+    redirecting: false,
+  };
+
+  getUser = () => {
+    window.FB.api("/me", (user) => {
+      this.setState({ user, processing: false, redirect: true });
+    });
   };
 
   login = () => {
-    this.setState({ user: { name: "Artur" } });
+    this.setState({ processing: true });
+    window.FB.getLoginStatus((response) => {
+      if (response.status === "connected") {
+        this.getUser();
+      } else {
+        window.FB.login((user) => {
+          this.getUser();
+        });
+      }
+    });
   };
 
   logout = () => {
