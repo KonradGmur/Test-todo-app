@@ -4,7 +4,7 @@ const CurrentUserContext = React.createContext();
 
 export class CurrentUserProvider extends Component {
   state = {
-    user: { name: "Konrad" },
+    user: null,
     processing: false,
     redirecting: false,
   };
