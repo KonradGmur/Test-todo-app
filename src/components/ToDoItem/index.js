@@ -26,10 +26,10 @@ class ToDoItem extends Component {
   destroy = () => this.props.destroy(this.props.id);
 
   render() {
-    const { id, tex, done } = this.props;
+    const { id, text, done } = this.props;
     return (
       <Item done={done}>
-        <div onClick={this.toggleDone}>{tex}</div>
+        <div onClick={this.toggleDone}>{text}</div>
         <button onClick={this.destroy}>X</button>
         <StyledLink to={`/servers/${id}`}>edit</StyledLink>
       </Item>
