@@ -1,37 +1,51 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 
-class NotFound extends Component {
-  state = {
-    counter: 10,
-  };
+const NotFound = ({ location }) => {
+  return (
+    <div>
+      <p>
+        No match for <code>{this.props.location.pathname}</code>
+      </p>
+      <p>Redirect tot homepage in {this.state.counter} seconds</p>
+      {counter === 0 && <Redirect to="/" />}
+    </div>
+  );
+};
 
-  componentDidMount = () => {
-    const intervalId = setInterval(this.countdown, 1000);
-    this.setState({ intervalId });
-  };
+export default NotFound;
 
-  countdown = () => {
-    this.setState({ counter: this.state.counter - 1 });
-  };
+// class NotFound extends Component {
+//   state = {
+//     counter: 10,
+//   };
 
-  componentWillUnmount = () => {
-    clearInterval(this.state.intervalId);
-  };
+//   componentDidMount = () => {
+//     const intervalId = setInterval(this.countdown, 1000);
+//     this.setState({ intervalId });
+//   };
 
-  render() {
-    const { location } = this.props;
-    const { counter } = this.state;
-    return (
-      <div>
-        <p>
-          No match for <code>{this.props.location.pathname}</code>
-        </p>
-        <p>Redirect tot homepage in {this.state.counter} seconds</p>
-        {counter === 0 && <Redirect to="/" />}
-      </div>
-    );
-  }
-}
+//   countdown = () => {
+//     this.setState({ counter: this.state.counter - 1 });
+//   };
+
+//   componentWillUnmount = () => {
+//     clearInterval(this.state.intervalId);
+//   };
+
+//   render() {
+//     const { location } = this.props;
+//     const { counter } = this.state;
+//     return (
+//       <div>
+//         <p>
+//           No match for <code>{this.props.location.pathname}</code>
+//         </p>
+//         <p>Redirect tot homepage in {this.state.counter} seconds</p>
+//         {counter === 0 && <Redirect to="/" />}
+//       </div>
+//     );
+//   }
+// }
 
 export default NotFound;
