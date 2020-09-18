@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 
 const NotFound = ({ location }) => {
   const [counter, setCounter] = useState(10);
-
+  const [intervalId, setIntervalId] = useState();
   const countdown = () => setCounter(counter - 1);
+
+  useEffect(() => {
+    const interval = setInterval(countdown, 1000);
+    setIntervalId(interval);
+  });
 
   return (
     <div onClick={countdown}>
