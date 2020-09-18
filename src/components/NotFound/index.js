@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 
 const NotFound = ({ location }) => {
+  const [counter, setCounter] = useState(10);
+
+  const countdown = () => setCounter(counter - 1);
+
   return (
-    <div>
+    <div onClick={countdown}>
       <p>
         No match for <code>{this.props.location.pathname}</code>
       </p>
@@ -47,5 +51,3 @@ export default NotFound;
 //     );
 //   }
 // }
-
-export default NotFound;
