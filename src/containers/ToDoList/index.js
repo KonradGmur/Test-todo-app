@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import ToDoItem from "../../components/ToDoItem/index";
 import NewTodoForm from "../../components/NewTodoForm/index";
 import styled from "styled-components";
@@ -17,8 +17,14 @@ const DestroyButton = styled.button`
   margin-bottom: 10px;
 `;
 
+const initialState = {
+  todos: {},
+  todoIds: [],
+};
+
 const ToDoList = () => {
   const [draft, setDraft] = useState("");
+  const [state, dispatch] = useReducer(reducer, { count: initialCount });
   return (
     <div>
       <Header>{title}</Header>
@@ -35,7 +41,9 @@ const ToDoList = () => {
       ))}
       <NewTodoForm
         onSubmit={this.addToDo}
-        onChange={this.updateDraft}
+        onChange={(event) => {
+          setDraft(event.target.value);
+        }}
         draft={draft}
       />
     </div>
