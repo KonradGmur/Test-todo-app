@@ -22,21 +22,37 @@ const initialState = {
   todoIds: [],
 };
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "ADD_TODO":
+      return {
+        ...state,
+        todos: {
+          ...state.todos,
+          [action.todo.id]: action.todo,
+        },
+        todoIds: [...state.todoIds, action.todo.id],
+      };
+    default:
+      return state;
+  }
+};
+
 const ToDoList = () => {
   const [draft, setDraft] = useState("");
-  const [state, dispatch] = useReducer(reducer, { count: initialCount });
+  const [store, dispatch] = useReducer(reducer, initialState);
   return (
     <div>
-      <Header>{title}</Header>
+      <Header>My project</Header>
       <DestroyButton onClick={this.removeAll}>Remove all</DestroyButton>
-      {tasks.map((task) => (
+      {store.todoIds.map((id) => (
         <ToDoItem
-          destroy={this.destroyToDo}
-          key={task.id}
-          id={task.id}
-          text={task.name}
+          key={id}
+          id={id}
+          text={store.todos[id].name}
           toggleDone={this.toggleDone}
-          done={task.done}
+          destroy={this.destroyToDo}
+          done={store.todos[id].done}
         />
       ))}
       <NewTodoForm
