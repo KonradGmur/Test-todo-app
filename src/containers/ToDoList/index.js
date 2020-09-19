@@ -1,9 +1,10 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import ToDoItem from "../../components/ToDoItem/index";
 import NewTodoForm from "../../components/NewTodoForm/index";
 import styled from "styled-components";
 import * as ToDoItemApi from "../../helpers/toDoItemApi";
 import * as _ from "ramda";
+import { toDoItemsApiUrl } from "../../helpers/routes";
 
 const Header = styled.h1`
   color: #fff;
@@ -42,10 +43,18 @@ const ToDoList = () => {
   const [draft, setDraft] = useState("");
   const [store, dispatch] = useReducer(reducer, initialState);
 
-  const addToDo = () => {
+  useEffect(async () => {
+    const todos = await ToDoItemApi.getAll();
+    todos.map((todo) => {
+      dispatch({ type: "ADD_TODO", todo });
+    });
+  }, []);
+
+  const addToDo = async () => {
+    const todo = await ToDoItemApi.create({ content: draft });
     dispatch({
       type: "ADD_TODO",
-      todo: { id: 1, content: "Bla bla", done: false },
+      todo,
     });
     setDraft("");
   };
