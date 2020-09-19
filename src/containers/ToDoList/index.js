@@ -41,6 +41,15 @@ const reducer = (state, action) => {
 const ToDoList = () => {
   const [draft, setDraft] = useState("");
   const [store, dispatch] = useReducer(reducer, initialState);
+
+  const addToDo = () => {
+    dispatch({
+      type: "ADD_TODO",
+      todo: { id: 1, content: "Bla bla", done: false },
+    });
+    setDraft("");
+  };
+
   return (
     <div>
       <Header>My project</Header>
@@ -56,7 +65,7 @@ const ToDoList = () => {
         />
       ))}
       <NewTodoForm
-        onSubmit={this.addToDo}
+        onSubmit={addToDo}
         onChange={(event) => {
           setDraft(event.target.value);
         }}
