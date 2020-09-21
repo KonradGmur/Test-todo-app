@@ -1,19 +1,23 @@
 import React, { Component, lazy, Suspense } from "react";
-import ToDoList from "./containers/ToDoList/index";
-import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import styled from "styled-components";
-import ToDoEditForm from "./components/ToDoEditForm/index";
-import Login from "./containers/Login/index";
-import NotFound from "./components/NotFound/index";
-import { Redirect } from "react-router-dom";
-import Navbar from "./containers/Navbar/index";
+import ToDoList from "./containers/ToDoList";
+import ToDoEditForm from "./containers/ToDoEditForm";
+import NotFound from "./components/NotFound";
+import Login from "./containers/Login";
+import Navbar from "./containers/Navbar";
 import {
   CurrentUserProvider,
   CurrentUserConsumer,
 } from "./context/CurrentUser.context";
+import "./App.css";
 
-const Stats = lazy(() => import("./containers/Stats/index"));
+const Stats = lazy(() => import("./containers/Stats"));
 
 const Container = styled.div`
   background: #2b2e39;
@@ -25,7 +29,7 @@ const Container = styled.div`
   margin-top: 14px;
 `;
 
-const PrivateRoute = ({ componet: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) => (
@@ -59,10 +63,9 @@ class App extends Component {
                 <Route exact path="/" component={ToDoList} />
                 <PrivateRoute
                   exact
-                  path="/servers/:itemId"
+                  path={"/todo_items/:itemId"}
                   component={ToDoEditForm}
                 />
-                <Route component={NotFound} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/stats" component={Stats} />
                 <Route component={NotFound} />
