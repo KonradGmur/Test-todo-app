@@ -6,12 +6,11 @@ export class CurrentUserProvider extends Component {
   state = {
     user: null,
     processing: false,
-    redirecting: false,
   };
 
   getUser = () => {
     window.FB.api("/me", (user) => {
-      this.setState({ user, processing: false, redirect: true });
+      this.setState({ user, processing: false, redirecting: true });
     });
   };
 
@@ -28,11 +27,11 @@ export class CurrentUserProvider extends Component {
     });
   };
 
-  logout = () => {
-    this.setState({ user: null });
-  };
+  logout = () => this.setState({ user: null });
+
   render() {
     const { children } = this.props;
+
     return (
       <CurrentUserContext.Provider
         value={{
