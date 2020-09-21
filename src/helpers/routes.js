@@ -1,4 +1,4 @@
-const serverUrl = "http://localhost:4454/servers";
+const serverUrl = "http://localhost:5000";
 
 export const toDoItemsApiUrl = (id) =>
-  id ? `${serverUrl}/${id}` : `${serverUrl}`;
+  id ? `${serverUrl}/todo_items/${id}` : `${serverUrl}/todo_items`;
