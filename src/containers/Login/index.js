@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { SubmitButton } from "../../helpers/theme";
 import { Redirect } from "react-router-dom";
+import { SubmitButton } from "../../helpers/theme";
 import { CurrentUserConsumer } from "../../context/CurrentUser.context";
 
 class Login extends Component {
@@ -12,12 +12,11 @@ class Login extends Component {
         {({ user, login, processing }) => (
           <div>
             {user && <Redirect to={from} />}
-            <p>You must login to view page {from.pathname}</p>
-
+            <p>You must log in to view the page at {from.pathname}</p>
             {processing ? (
               <div>Authenticating...</div>
             ) : (
-              <SubmitButton ocClick={login}>Facebook login</SubmitButton>
+              <SubmitButton onClick={login}>Facebook login</SubmitButton>
             )}
           </div>
         )}
