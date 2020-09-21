@@ -5,38 +5,37 @@ export const get = (url) =>
       .then((json) => resolve(json));
   });
 
-const apicall = (url, method, body, resolve, reject) => {
+const apiCall = (url, method, body, resolve, reject) =>
   fetch(url, {
     method: method,
     headers: {
-      "Content-Type": "application/json ; charset=utf-8",
+      "Content-Type": "application/json; charset=utf-8",
     },
     body: JSON.stringify(body),
   }).then((response) => {
     if (response.ok) {
-      response.json().then((json) => response(json));
+      response.json().then((json) => resolve(json));
     } else {
       reject(response);
     }
   });
-};
-
-export const post = (url, body) =>
-  new Promise((resolve, reject) => apicall(url, "POST", body, resolve, reject));
 
 export const put = (url, body) =>
-  new Promise((resolve, reject) => apicall(url, "PUT", body, resolve, reject));
+  new Promise((resolve, reject) => apiCall(url, "PUT", body, resolve, reject));
+
+export const post = (url, body) =>
+  new Promise((resolve, reject) => apiCall(url, "POST", body, resolve, reject));
 
 export const destroy = (url) =>
   new Promise((resolve, reject) => {
     fetch(url, {
-      method: "method",
+      method: "DELETE",
       headers: {
-        "Content-Type": "application/json ; charset=utf-8",
+        "Content-Type": "application/json; charset=utf-8",
       },
     }).then((response) => {
       if (response.ok) {
-        response(response);
+        resolve(response);
       } else {
         reject(response);
       }
